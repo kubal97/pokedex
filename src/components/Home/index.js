@@ -9,18 +9,21 @@ class  Home extends React.Component{
         this.state = {
             pokemonsCount: 0,
             pokemons: [],
-            currentPage: 0
+            currentPage: 0,
+            isFiltersVisible: false,
+            types: []
         };
     }
 
-    onLoadPokemons() {
-        axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${this.state.currentPage * 20}`)
-            .then((response) => {
-                this.setState({
-                    pokemonsCount: response.data.count,
-                    pokemons: response.data.results
-                });
-            })
+    async onLoadPokemons() {
+        const types = (await axios.get('https://pokeapi.co/api/v2/type')).data.results;
+        const { count, results } = (await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${this.state.currentPage * 20}`)).data;
+        const pokemons = (await Promise.all(results.map(result => axios.get(result.url)))).map(result => result.data);
+        this.setState({
+            pokemonsCount: count,
+            pokemons: pokemons,
+            types: types
+        });
     }
 
     onNextPage() {
@@ -80,25 +83,38 @@ class  Home extends React.Component{
             <div className='mainContainer'>
                 <div className='info'>
                     <p className='results'>Pokemons found: {this.state.pokemonsCount}</p>
-                    <div className='filters'>
+                    <button onClick={() => this.setState({isFiltersVisible: !this.state.isFiltersVisible})} className='filters'>
                         <i className="fas fa-filter" />
                         <p className='filtersText'>Filters</p>
-                    </div>
+                    </button>
+                    {!this.state.isFiltersVisible ? null :
+                        <div className='listOfFilters'>
+                            <p>Filter by types</p>
+                            <div className='checkboxes'>
+                                {this.state.types.map(type =>
+                                        <div className='type'>
+                                            <input value={false} id={type.name} type='checkbox' className='checkbox' />
+                                            <p className='typeName'>{type.name}</p>
+                                        </div>
+                                    )}
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div className="header">
-                    <p className='name'>Name</p>
-                    <p>Prop 1</p>
-                    <p>Prop 2</p>
-                    <p>Prop 3</p>
-                    <p>Prop 4</p>
+                    <p>Image</p>
+                    <p>Name</p>
+                    <p>Types</p>
+                    <p>Height</p>
+                    <p>Held items</p>
                 </div>
                 {pokemons.map((pokemon) =>
-                    <Pokemon key={pokemon.url} pokemon={pokemon} />
+                    <Pokemon key={pokemon.id} pokemon={pokemon} />
                 )}
                 <div className="pagination">
-                    <button onClick={() => this.onPrevPage()}>Prev</button>
+                    <button className='changePage' onClick={() => this.onPrevPage()}>Prev</button>
                     {this.onCurrentPage()}
-                    <button onClick={() => this.onNextPage()}>Next</button>
+                    <button className='changePage' onClick={() => this.onNextPage()}>Next</button>
                 </div>
             </div>
         )

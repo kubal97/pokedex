@@ -1,0 +1,32 @@
+.search{
+  width: 100%;
+  height: 50px;
+
+  input[type='text']{
+    width: 80%;
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid #c5c7cd;
+  }
+
+  .searchButton{
+    width: 20%;
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #76BDFE;
+    color: #ffffff;
+    outline: none;
+    border: none;
+
+    &:hover{
+      cursor: pointer;
+      background-color: #5f8dbd;
+    }
+  }
+}

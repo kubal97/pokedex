@@ -161,6 +161,10 @@
   width: 40px;
   height: 25px;
 
+  &:hover{
+    cursor: pointer;
+  }
+
   &:visited, &:active{
     text-decoration: none;
     color: #353535;

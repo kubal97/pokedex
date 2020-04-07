@@ -2,8 +2,9 @@ import React from "react";
 import './styles.scss';
 import axios from 'axios';
 import Pokemon from '../Pokemon';
+import Search from '../Search';
 
-class  Home extends React.Component{
+class Home extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -12,6 +13,7 @@ class  Home extends React.Component{
             currentPage: 0,
             isFiltersVisible: false,
             types: []
+            //typesChecked: {}
         };
     }
 
@@ -21,8 +23,8 @@ class  Home extends React.Component{
         const pokemons = (await Promise.all(results.map(result => axios.get(result.url)))).map(result => result.data);
         this.setState({
             pokemonsCount: count,
-            pokemons: pokemons,
-            types: types
+            pokemons,
+            types
         });
     }
 
@@ -55,8 +57,8 @@ class  Home extends React.Component{
         for (let i = 0; i < totalPages; i++) {
             if (i - this.state.currentPage < 5 && this.state.currentPage - i < 5){
             restPages.push(<a
-                href='#'
                 onClick={() => {
+                    window.scroll({top: 0, behavior: 'smooth' });
                     this.setState({
                         currentPage: i,
                     }, () => {
@@ -73,6 +75,26 @@ class  Home extends React.Component{
         return restPages;
     }
 
+    /*checkType(e, name) {
+        let typesChecked = this.state.typesChecked;
+        typesChecked[name] = e.target.checked;
+        this.setState({typesChecked: this.state.typesChecked});
+        console.log(this.state.typesChecked);
+    }*/
+
+    searchFilter(input) {
+        let filteredPokemons = this.state.pokemons;
+        let filtered = [];
+        filteredPokemons.filter(pokemon => {
+            if (pokemon.name.includes(input) || input === '') filtered.push(pokemon);
+        });
+        this.setState({
+            pokemons: filtered,
+        })
+        console.log('input: ' + input);
+        console.log(filtered);
+    }
+
     componentDidMount() {
         this.onLoadPokemons();
     }
@@ -81,6 +103,7 @@ class  Home extends React.Component{
         const pokemons = this.state.pokemons;
         return (
             <div className='mainContainer'>
+                <Search pokemons={pokemons} searchFilter={(input) => this.searchFilter(input)} />
                 <div className='info'>
                     <p className='results'>Pokemons found: {this.state.pokemonsCount}</p>
                     <button onClick={() => this.setState({isFiltersVisible: !this.state.isFiltersVisible})} className='filters'>
@@ -89,15 +112,15 @@ class  Home extends React.Component{
                     </button>
                     {!this.state.isFiltersVisible ? null :
                         <div className='listOfFilters'>
-                            <p>Filter by types</p>
+                            {/*<p>Filter by types</p>
                             <div className='checkboxes'>
-                                {this.state.types.map(type =>
+                                {this.state.types.map((type, index) =>
                                         <div className='type'>
-                                            <input value={false} id={type.name} type='checkbox' className='checkbox' />
+                                            <input onChange={(e) => this.checkType(e, type.name)} id={type.name} type='checkbox' className='checkbox' />
                                             <p className='typeName'>{type.name}</p>
                                         </div>
                                     )}
-                            </div>
+                            </div>*/}
                         </div>
                     }
                 </div>
@@ -108,8 +131,8 @@ class  Home extends React.Component{
                     <p>Height</p>
                     <p>Held items</p>
                 </div>
-                {pokemons.map((pokemon) =>
-                    <Pokemon key={pokemon.id} pokemon={pokemon} />
+                {pokemons.map((pokemon, index) =>
+                        <Pokemon key={index} pokemon={pokemon} />
                 )}
                 <div className="pagination">
                     <button className='changePage' onClick={() => this.onPrevPage()}>Prev</button>

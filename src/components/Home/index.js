@@ -10,6 +10,7 @@ class Home extends React.Component{
         this.state = {
             pokemonsCount: 0,
             pokemons: [],
+            filteredPokemons: [],
             currentPage: 0,
             isFiltersVisible: false,
             types: []
@@ -24,7 +25,8 @@ class Home extends React.Component{
         this.setState({
             pokemonsCount: count,
             pokemons,
-            types
+            types,
+            filteredPokemons: pokemons
         });
     }
 
@@ -89,8 +91,8 @@ class Home extends React.Component{
             if (pokemon.name.includes(input) || input === '') filtered.push(pokemon);
         });
         this.setState({
-            pokemons: filtered,
-        })
+            filteredPokemons: filtered
+        });
         console.log('input: ' + input);
         console.log(filtered);
     }
@@ -105,7 +107,7 @@ class Home extends React.Component{
             <div className='mainContainer'>
                 <Search pokemons={pokemons} searchFilter={(input) => this.searchFilter(input)} />
                 <div className='info'>
-                    <p className='results'>Pokemons found: {this.state.pokemonsCount}</p>
+                    <p className='results'>Pokemons found: {this.state.filteredPokemons.length}</p>
                     <button onClick={() => this.setState({isFiltersVisible: !this.state.isFiltersVisible})} className='filters'>
                         <i className="fas fa-filter" />
                         <p className='filtersText'>Filters</p>
@@ -131,7 +133,7 @@ class Home extends React.Component{
                     <p>Height</p>
                     <p>Held items</p>
                 </div>
-                {pokemons.map((pokemon, index) =>
+                {this.state.filteredPokemons.map((pokemon, index) =>
                         <Pokemon key={index} pokemon={pokemon} />
                 )}
                 <div className="pagination">

@@ -37,9 +37,10 @@ const Pokemon = (props) => {
                 {pokemon.types.map(type => <p className='type'>{type.type.name}</p>)}
             </div>
             <p className='height'>{pokemon.height}</p>
+            <p className='weight'>{pokemon.weight}</p>
             <div className='heldItems'>
                 {pokemon.held_items.length <=0 ? <p>---</p> :
-                pokemon.held_items.map(item => <p className='item'>{item.item.name}</p>)
+                pokemon.held_items.map((item, index) => <p key={index} className='item'>{item.item.name}</p>)
                 }
             </div>
             <p></p>

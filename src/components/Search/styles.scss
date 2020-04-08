@@ -3,7 +3,7 @@
   height: 50px;
 
   input[type='text']{
-    width: 80%;
+    width: calc(80% - 10px);
     height: 100%;
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
@@ -11,10 +11,12 @@
     border-radius: 5px;
     outline: none;
     border: 2px solid #c5c7cd;
+    margin-right: 10px;
+    color: #656565;
   }
 
   .searchButton{
-    width: 20%;
+    width: calc(20% - 10px);
     height: 100%;
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
@@ -23,6 +25,8 @@
     color: #ffffff;
     outline: none;
     border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
 
     &:hover{
       cursor: pointer;

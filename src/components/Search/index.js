@@ -13,8 +13,8 @@ class Search extends React.Component{
         this.setState({searchInput: e.target.value});
     }
 
-    enterPressed(event) {
-        const code = event.keyCode || event.which;
+    enterPressed(e) {
+        const code = e.keyCode || e.which;
         if(code === 13) {
             this.props.searchFilter(this.state.searchInput);
         }
@@ -28,7 +28,11 @@ class Search extends React.Component{
                     onKeyPress={this.enterPressed.bind(this)}
                     placeholder='Find a pokemon'
                     type="text"/>
-                <button onClick={() => this.props.searchFilter(this.state.searchInput)} className='searchButton'>Search</button>
+                <button
+                    onClick={() => this.props.searchFilter(this.state.searchInput)}
+                    className='searchButton'>
+                    Search
+                </button>
             </div>
         )
     }

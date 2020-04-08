@@ -17,42 +17,63 @@
   font-family: 'Open Sans', sans-serif;
   text-align: center;
 
-  .img{
-    width: 20%;
-    height: auto;
-
-    .image{
-      height: 100px;
-      width: auto;
-    }
-  }
-
-  .name{
-    width: 20%;
-    text-transform: capitalize;
-    font-size: 20px;
-    font-weight: bold;
-    color: #ffffff;
-  }
-
-  .types, .heldItems{
-    width: 20%;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: normal;
+  .responsiveMain{
+    width: calc((100%/6)*2);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 
-    .type, .item{
-      margin: 0 auto;
+    .img{
+      width: 50%;
+      height: auto;
+
+      .image{
+        height: 100px;
+        width: auto;
+      }
+    }
+
+    .name{
+      width: 50%;
+      text-transform: capitalize;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
     }
   }
 
-  .height, .weight{
-    width: 20%;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: normal;
+  .responsive{
+    width: calc((100%/6)*4);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .labelResponsive{
+      display: none;
+    }
+
+    .types, .heldItems{
+      width: 20%;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: normal;
+      display: flex;
+      flex-direction: column;
+
+
+      .type, .item{
+        margin: 0 auto;
+      }
+    }
+
+    .height, .weight{
+      width: 20%;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: normal;
+    }
   }
 }
 
@@ -82,4 +103,51 @@
 
 .default{
   background-color: #ceba83;
+}
+
+@media only screen and (max-width: 768px) {
+  .pokemon{
+    height: 170px;
+
+    .responsiveMain{
+      flex-direction: column-reverse;
+
+      .img{
+        width: 100%;
+      }
+
+      .name{
+        width: 100%;
+        font-size: 18px;
+        margin: 0 auto;
+      }
+    }
+
+    .responsive{
+      flex-direction: column;
+
+      .types, .height, .weight, .heldItems{
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        margin: 0 auto;
+        font-size: 16px;
+        font-weight: 800;
+        align-items: center;
+
+        .type, .dots,  .item{
+          margin: 0 5px;
+        }
+      }
+
+      .labelResponsive{
+        font-size: 13px;
+        display: flex;
+        margin-right: 10px;
+        font-weight: 400;
+
+
+      }
+    }
+  }
 }

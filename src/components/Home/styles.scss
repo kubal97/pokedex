@@ -155,9 +155,13 @@
       outline: none;
       border: none;
 
-      &:hover{
+      &:hover:enabled{
         cursor: pointer;
         background-color: #5f8dbd;
+      }
+
+      &:disabled{
+        background-color: #9A9A9A;
       }
     }
   }
@@ -200,4 +204,50 @@
   }
   100%{
     transform:scale(1)}
+}
+
+@media only screen and (max-width: 768px) {
+  .mainContainer{
+    width: 95vw;
+
+    .info{
+      .results{
+        font-size: 16px;
+      }
+
+      .filters{
+        width: 80px;
+        height: 40px;
+
+        .fa-filter{
+          font-size: 10px;
+        }
+
+        .filtersText{
+          font-size: 15px;
+          margin: 0;
+        }
+      }
+    }
+
+    .header{
+      display: none;
+    }
+
+    .pagination{
+      .changePage{
+        width: 80px;
+        height: 40px;
+        padding: 5px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .singlePage {
+    font-size: 18px;
+    margin: auto 6px;
+    width: 30px;
+    height: 20px;
+  }
 }

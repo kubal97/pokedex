@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
 import './styles.scss';
 import axios from 'axios';
+
 import pokeball from '../../assets/pokemon.png';
+
 import Pokemon from '../Pokemon';
 import Search from '../Search';
 
@@ -16,7 +18,6 @@ class Home extends React.Component{
             currentPage: 1,
             isFiltersVisible: false,
             types: []
-            //typesChecked: {}
         };
     }
 
@@ -76,6 +77,7 @@ class Home extends React.Component{
                         this.onLoadPokemons();
                     });
                 }}
+                href="/#"
                 key={i}
                 // eslint-disable-next-line react/no-direct-mutation-state
                 className={this.state.currentPage === i ?
@@ -98,6 +100,7 @@ class Home extends React.Component{
         let filtered = [];
         filteredPokemons.filter(pokemon => {
             if (pokemon.name.includes(input.toLowerCase()) || input === '') filtered.push(pokemon);
+            return 0
         });
         this.setState({
             filteredPokemons: filtered
@@ -149,7 +152,11 @@ class Home extends React.Component{
                     <p>Weight</p>
                     <p>Held items</p>
                 </div>
-                {this.state.isLoading ? <div><img src={pokeball} alt='Loading' className="loadingIcon"/><p className='loadingText'>Loading...</p></div> :
+                {this.state.isLoading ?
+                    <div style={{textAlign: 'center'}}>
+                        <img src={pokeball} alt='Loading' className="loadingIcon"/>
+                        <p className='loadingText'>Fetching some pokemons...</p>
+                    </div> :
                 pokemonsVisible.map((pokemon, index) =>
                      <Pokemon key={index} pokemon={pokemon} />
                 )

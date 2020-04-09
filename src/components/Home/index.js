@@ -7,6 +7,7 @@ import pokeball from '../../assets/pokemon.png';
 import Pokemon from '../Pokemon';
 import Search from '../Search';
 import Loading from '../Loading';
+import Filters from '../Filters';
 
 const pokemonsPerPage = 20;
 
@@ -19,18 +20,21 @@ class Home extends React.Component{
             pokemons: [],
             filteredPokemons: [],
             currentPage: 1,
-            isFiltersVisible: false
+            isFiltersVisible: false,
+            pokemonTypes: []
         };
     }
 
     async onLoadPokemons() {
+        const types = (await axios.get('https://pokeapi.co/api/v2/type')).data.results;
         const { count, results } = (await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1000`)).data;
         const pokemons = (await Promise.all(results.map(result => axios.get(result.url)))).map(result => result.data);
         this.setState({
             pokemonsCount: count,
             pokemons,
             filteredPokemons: pokemons,
-            isLoading: false
+            isLoading: false,
+            pokemonTypes: types
         });
     }
 
@@ -72,8 +76,6 @@ class Home extends React.Component{
                         window.scroll({top: 0, behavior: 'smooth' });
                         this.setState({
                             currentPage: i,
-                        }, () => {
-                            this.onLoadPokemons();
                         });
                     }}
                     href="/#"
@@ -97,8 +99,39 @@ class Home extends React.Component{
             return null
         });
         this.setState({
-            filteredPokemons
+            filteredPokemons,
+            currentPage: 1
         });
+    }
+
+    typesFilter(checkedTypes){
+        let pokemons = this.state.pokemons;
+        const selectedTypes = [];
+        let filteredPokemons = [];
+        checkedTypes.forEach((val, key)  => {
+            if( val === true) return selectedTypes.push(key);
+        });
+        pokemons.map(pokemon => {
+             pokemon.types.map(type => {
+                 return (selectedTypes.includes(type.type.name) ? filteredPokemons.push(pokemon) : null)
+            })
+        });
+        filteredPokemons = this.removeDuplicates(filteredPokemons, 'id');
+        selectedTypes.length <= 0 ? this.setState({filteredPokemons: this.state.pokemons}) :
+        this.setState({filteredPokemons});
+    }
+
+    removeDuplicates(array, key) {
+        return array
+            .map(e => e[key])
+            .map((e, i, final) => final.indexOf(e) === i && i)
+            .filter(e => array[e]).map(e => array[e]);
+    }
+
+    closeModal() {
+        this.setState({
+            isFiltersVisible: false
+        })
     }
 
     componentDidMount() {
@@ -128,11 +161,12 @@ class Home extends React.Component{
                         <i className="fas fa-filter" />
                         <p className='filtersText'>Filters</p>
                     </button>
-                    {!this.state.isFiltersVisible ? null :
-                        <div className='listOfFilters'>
-                            <p>Filter 1</p>
-                        </div>
-                    }
+                    <Filters
+                        typesFilter={(checkedTypes) => this.typesFilter(checkedTypes)}
+                        types={this.state.pokemonTypes}
+                        closeModal={() => this.closeModal()}
+                        isFiltersVisible={this.state.isFiltersVisible}
+                    />
                 </div>
                 <div className="header">
                     <p>Image</p>

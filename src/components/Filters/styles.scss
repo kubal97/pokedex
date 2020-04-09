@@ -1,0 +1,89 @@
+.listOfFilters{
+  position: absolute;
+  width: 80%;
+  height: auto;
+  right: 0;
+  top: 70px;
+  padding: 10px;
+  background-color: #5f8dbd;
+  border-radius: 5px;
+  box-shadow: 0 0 30px #353535;
+
+  .filterName{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .checkboxes{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .type{
+      width: 70px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      color: #ffffff;
+      margin: 5px 20px;
+      text-align: center;
+
+
+      .typeName{
+        text-transform: capitalize;
+        margin: 0 0 20px 0;
+      }
+    }
+  }
+
+  .buttonsContainer{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+
+    &:hover{
+      cursor: pointer;
+      background-color: #5f8dbd;
+    }
+
+    .buttonFilters{
+      font-family: 'Open Sans', sans-serif;
+      font-size: 20px;
+      margin: 10px;
+      color: #ffffff;
+      width: 150px;
+      height: 50px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      box-shadow: none;
+      outline: none;
+      border: none;
+
+    }
+
+    .close{
+      background-color: #656565;
+
+      &:hover{
+        cursor: pointer;
+        background-color: #353535;
+      }
+    }
+
+    .filter{
+      background-color: #48D0B0;
+
+      &:hover{
+        cursor: pointer;
+        background-color: #3ba78b;
+      }
+    }
+  }
+}

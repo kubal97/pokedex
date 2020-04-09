@@ -56,37 +56,6 @@
         color: #ffffff;
       }
     }
-
-    .listOfFilters{
-      position: absolute;
-      width: auto;
-      height: auto;
-      right: 0;
-      top: 70px;
-      padding: 10px;
-      background-color: #76BDFE;
-      border-radius: 5px;
-
-      .checkboxes{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        max-width: 80vw;
-
-        .type{
-          font-family: 'Open Sans', sans-serif;
-          font-size: 15px;
-          color: #ffffff;
-          margin: 5px 20px;
-          text-align: center;
-
-
-          .typeName{
-            text-transform: capitalize;
-          }
-        }
-      }
-    }
   }
 
   .header{

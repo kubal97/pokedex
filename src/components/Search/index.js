@@ -21,6 +21,7 @@ class Search extends React.Component{
     }
 
     render() {
+        const {isLoading} = this.props;
         return (
             <div className='search'>
                 <input
@@ -29,6 +30,7 @@ class Search extends React.Component{
                     placeholder='Find a pokemon'
                     type="text"/>
                 <button
+                    disabled={isLoading}
                     onClick={() => this.props.searchFilter(this.state.searchInput)}
                     className='searchButton'>
                     Search

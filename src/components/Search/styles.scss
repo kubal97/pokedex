@@ -32,6 +32,11 @@
       cursor: pointer;
       background-color: #5f8dbd;
     }
+
+    &:disabled, &:disabled:hover{
+      background-color: #9A9A9A;
+      cursor: default;
+    }
   }
 }
 

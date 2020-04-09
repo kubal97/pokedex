@@ -6,6 +6,7 @@ import pokeball from '../../assets/pokemon.png';
 
 import Pokemon from '../Pokemon';
 import Search from '../Search';
+import Loading from '../Loading';
 
 const pokemonsPerPage = 20;
 
@@ -105,7 +106,6 @@ class Home extends React.Component{
     }
 
     render() {
-        const pokemons = this.state.pokemons;
         const filteredPokemons = this.state.filteredPokemons;
         let pokemonsVisible = [];
         if(!this.state.isLoading) {
@@ -116,7 +116,7 @@ class Home extends React.Component{
         return (
             <div className='mainContainer'>
                 <Search
-                    pokemons={pokemons}
+                    isLoading={this.state.isLoading}
                     searchFilter={(input) => this.searchFilter(input)}
                 />
                 <div className='info'>
@@ -143,10 +143,7 @@ class Home extends React.Component{
                     <p>Held items</p>
                 </div>
                 {this.state.isLoading ?
-                    <div style={{textAlign: 'center'}}>
-                        <img src={pokeball} alt='Loading' className="loadingIcon"/>
-                        <p className='loadingText'>Fetching some pokemons...</p>
-                    </div> :
+                    <Loading pokeball={pokeball} /> :
                     pokemonsVisible.map((pokemon, index) =>
                         <Pokemon key={index} pokemon={pokemon} />
                     )

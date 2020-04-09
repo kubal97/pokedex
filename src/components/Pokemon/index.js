@@ -31,23 +31,33 @@ const Pokemon = (props) => {
         <div className={'pokemon ' + bcgColors[pokemon.types[0].type.name]}>
             <div className="responsiveMain">
                 <div className="img">
-                    <img
-                        className='image'
-                        src={pokemon.sprites.front_default}
-                        alt={pokemon.name}
-                    />
+                    {pokemon.sprites.front_default ?
+                        <img
+                            className='image'
+                            src={pokemon.sprites.front_default}
+                            alt={pokemon.name}
+                        /> :
+                        <p className='noImage'>No picture</p>
+                    }
                 </div>
-                <p className='name'>{pokemon.name}</p>
+                {pokemon.name.length <= 0 ? <p className='name'>---</p> : <p className="name">{pokemon.name}</p>}
             </div>
             <div className="responsive">
                 <div className='types'>
                     <span className='labelResponsive'>Types:</span>
-                    {pokemon.types.map((type, index) =>
-                        <p key={index} className='type'>{type.type.name}</p>
-                    )}
+                    {pokemon.types.length <= 0 ? <p className="type">---</p> :
+                        pokemon.types.map((type, index) =>
+                            <p key={index} className='type'>{type.type.name}</p>
+                        )}
                 </div>
-                <p className='height'><span className='labelResponsive'>Height:</span>{pokemon.height}</p>
-                <p className='weight'><span className='labelResponsive'>Weight:</span>{pokemon.weight}</p>
+                <p className='height'>
+                    <span className='labelResponsive'>Height:</span>
+                    {!pokemon.height ? '---' : pokemon.height}
+                </p>
+                <p className='weight'>
+                    <span className='labelResponsive'>Weight:</span>
+                    {!pokemon.weight ? '---' : pokemon.weight}
+                </p>
                 <div className='heldItems'>
                     <span className='labelResponsive'>Held items:</span>
                     {pokemon.held_items.length <=0 ? <p className='dots'>---</p> :

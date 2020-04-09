@@ -32,6 +32,13 @@
         height: 100px;
         width: auto;
       }
+
+      .noImage{
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffffff;
+      }
     }
 
     .name{
@@ -114,6 +121,12 @@
 
       .img{
         width: 100%;
+
+        .noImage{
+          font-size: 16px;
+          font-weight: 400;
+          color: #ffffff;
+        }
       }
 
       .name{

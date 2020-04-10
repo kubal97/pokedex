@@ -9,7 +9,6 @@ import Search from '../Search';
 import Loading from '../Loading';
 import Filters from '../Filters';
 
-const pokemonsPerPage = 20;
 
 class Home extends React.Component{
     constructor(props){
@@ -22,7 +21,8 @@ class Home extends React.Component{
             currentPage: 1,
             isFiltersVisible: false,
             pokemonTypes: [],
-            alphabeticalSortDown : false
+            alphabeticalSortDown : false,
+            pokemonsPerPage: 20
         };
     }
 
@@ -41,8 +41,8 @@ class Home extends React.Component{
 
     onNextPage() {
         let totalPages;
-        if(this.state.filteredPokemons !== []) totalPages = Math.ceil(this.state.filteredPokemons.length / pokemonsPerPage);
-        else totalPages = Math.ceil(this.state.pokemonsCount / pokemonsPerPage);
+        if(this.state.filteredPokemons !== []) totalPages = Math.ceil(this.state.filteredPokemons.length / this.state.pokemonsPerPage);
+        else totalPages = Math.ceil(this.state.pokemonsCount / this.state.pokemonsPerPage);
         if (this.state.currentPage < totalPages) {
             window.scroll({top: 0, behavior: 'smooth' });
             this.setState({
@@ -66,8 +66,8 @@ class Home extends React.Component{
 
     onCurrentPage() {
         let totalPages = 1;
-        if(this.state.filteredPokemons !== []) totalPages = Math.ceil(this.state.filteredPokemons.length / pokemonsPerPage);
-        else totalPages = Math.ceil(this.state.pokemonsCount / pokemonsPerPage);
+        if(this.state.filteredPokemons !== []) totalPages = Math.ceil(this.state.filteredPokemons.length / this.state.pokemonsPerPage);
+        else totalPages = Math.ceil(this.state.pokemonsCount / this.state.pokemonsPerPage);
         const restPages = [];
         for (let i = 1; i <= totalPages; i++) {
             if (i - this.state.currentPage < 5 && this.state.currentPage - i < 5){
@@ -184,7 +184,7 @@ class Home extends React.Component{
         const filteredPokemons = this.state.filteredPokemons;
         let pokemonsVisible = [];
         if(!this.state.isLoading) {
-            for (let i = (((this.state.currentPage - 1) * pokemonsPerPage)); i < ((this.state.currentPage) * pokemonsPerPage); i++)
+            for (let i = (((this.state.currentPage - 1) * this.state.pokemonsPerPage)); i < ((this.state.currentPage) * this.state.pokemonsPerPage); i++)
                 if(filteredPokemons[i]) pokemonsVisible.push(filteredPokemons[i]);
         }
 
@@ -194,6 +194,16 @@ class Home extends React.Component{
                     isLoading={this.state.isLoading}
                     searchFilter={(input) => this.searchFilter(input)}
                 />
+                <div className='pokemonsPerPage'>
+                    <label className='labelPerPage'>Number of pokemons per page:</label>
+                    <input
+                        className='inputPerPage'
+                        type="number"
+                        value={this.state.pokemonsPerPage}
+                        placeholder='20'
+                        onChange={(e) => this.setState({pokemonsPerPage: e.target.value})}
+                    />
+                </div>
                 <div className='info'>
                     <p className='results'>Pokemons found: {this.state.filteredPokemons.length}</p>
                     <button

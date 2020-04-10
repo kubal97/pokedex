@@ -84,33 +84,84 @@
   }
 }
 
-.green{
+.green, .greengreen{
   background-color: #48D0B0;
 }
 
-.red{
+.red, .redred{
   background-color: #FB6C6C;
 }
 
-.blue{
+.blue, .blueblue{
   background-color: #76BDFE;
 }
 
-.purple{
+.purple, .purplepurple{
   background-color: #9983c8;
 }
 
-.gray{
+.gray, .graygray{
   background-color: #9A9A9A;
 }
 
-.brown{
+.brown, .brownbrown{
   background-color: #663F3F;
 }
 
-.default{
+.default, .defaultdefault{
   background-color: #ceba83;
 }
+
+/*-------------------------------------GREEN------------------------------------------*/
+.greenred{background-image: linear-gradient(to bottom, #48D0B0 50%, #FB6C6C 50%)}
+.greenblue{background-image: linear-gradient(to bottom, #48D0B0 50%, #76BDFE 50%)}
+.greenpurple{background-image: linear-gradient(to bottom, #48D0B0 50%, #9983c8 50%)}
+.greengray{background-image: linear-gradient(to bottom, #48D0B0 50%, #9A9A9A 50%)}
+.greenbrown{background-image: linear-gradient(to bottom, #48D0B0 50%, #663F3F 50%)}
+.greendefault{background-image: linear-gradient(to bottom, #48D0B0 50%, #ceba83 50%)}
+/*--------------------------------------RED-------------------------------------------*/
+.redgreen{background-image: linear-gradient(to bottom, #FB6C6C 50%, #48D0B0 50%)}
+.redblue{background-image: linear-gradient(to bottom, #FB6C6C 50%, #76BDFE 50%)}
+.redpurple{background-image: linear-gradient(to bottom, #FB6C6C 50%, #9983c8 50%)}
+.redgray{background-image: linear-gradient(to bottom, #FB6C6C 50%, #9A9A9A 50%)}
+.redbrown{background-image: linear-gradient(to bottom, #FB6C6C 50%, #663F3F 50%)}
+.reddefault{background-image: linear-gradient(to bottom, #FB6C6C 50%, #ceba83 50%)}
+/*--------------------------------------BLUE------------------------------------------*/
+.bluegreen{background-image: linear-gradient(to bottom, #76BDFE 50%, #48D0B0 50%)}
+.bluered{background-image: linear-gradient(to bottom, #76BDFE 50%, #FB6C6C 50%)}
+.bluepurple{background-image: linear-gradient(to bottom, #76BDFE 50%, #9983c8 50%)}
+.bluegray{background-image: linear-gradient(to bottom, #76BDFE 50%, #9A9A9A 50%)}
+.bluebrown{background-image: linear-gradient(to bottom, #76BDFE 50%, #663F3F 50%)}
+.bluedefault{background-image: linear-gradient(to bottom, #76BDFE 50%, #ceba83 50%)}
+/*--------------------------------------PURPLE----------------------------------------*/
+.purplegreen{background-image: linear-gradient(to bottom, #9983c8 50%, #48D0B0 50%)}
+.purplered{background-image: linear-gradient(to bottom, #9983c8 50%, #FB6C6C 50%)}
+.purpleblue{background-image: linear-gradient(to bottom, #9983c8 50%, #76BDFE 50%)}
+.purplegray{background-image: linear-gradient(to bottom, #9983c8 50%, #9A9A9A 50%)}
+.purplebrown{background-image: linear-gradient(to bottom, #9983c8 50%, #663F3F 50%)}
+.purpledefault{background-image: linear-gradient(to bottom, #9983c8 50%, #ceba83 50%)}
+/*--------------------------------------GREY-------------------------------------------*/
+.graygreen{background-image: linear-gradient(to bottom, #9A9A9A 50%, #48D0B0 50%)}
+.grayred{background-image: linear-gradient(to bottom, #9A9A9A 50%, #FB6C6C 50%)}
+.grayblue{background-image: linear-gradient(to bottom, #9A9A9A 50%, #76BDFE 50%)}
+.graypurple{background-image: linear-gradient(to bottom, #9A9A9A 50%, #9983c8 50%)}
+.graybrown{background-image: linear-gradient(to bottom, #9A9A9A 50%, #663F3F 50%)}
+.graydefault{background-image: linear-gradient(to bottom, #9A9A9A 50%, #ceba83 50%)}
+/*--------------------------------------BROWN------------------------------------------*/
+.browngreen{background-image: linear-gradient(to bottom, #663F3F 50%, #48D0B0 50%)}
+.brownred{background-image: linear-gradient(to bottom, #663F3F 50%, #FB6C6C 50%)}
+.brownblue{background-image: linear-gradient(to bottom, #663F3F 50%, #76BDFE 50%)}
+.brownpurple{background-image: linear-gradient(to bottom, #663F3F 50%, #9983c8 50%)}
+.browngray{background-image: linear-gradient(to bottom, #663F3F 50%, #9A9A9A 50%)}
+.browndefault{background-image: linear-gradient(to bottom, #663F3F 50%, #ceba83 50%)}
+/*--------------------------------------DEFAULT----------------------------------------*/
+.defaultgreen{background-image: linear-gradient(to bottom, #ceba83 50%, #48D0B0 50%)}
+.defaulred{background-image: linear-gradient(to bottom, #ceba83 50%, #FB6C6C 50%)}
+.defaulblue{background-image: linear-gradient(to bottom, #ceba83 50%, #76BDFE 50%)}
+.defaulpurple{background-image: linear-gradient(to bottom, #ceba83 50%, #9983c8 50%)}
+.defaulgray{background-image: linear-gradient(to bottom, #ceba83 50%, #9A9A9A 50%)}
+.defaulbrown{background-image: linear-gradient(to bottom, #ceba83 50%, #663F3F 50%)}
+
 
 @media only screen and (max-width: 768px) {
   .pokemon{

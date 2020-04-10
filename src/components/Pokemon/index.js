@@ -26,9 +26,17 @@ const Pokemon = (props) => {
         unknown: 'default',
         shadow: 'default',
     };
+    const types = (pokemon) => {
+        let type = '';
+        for (let i = 0; i < pokemon.types.length; i++) {
+            type += bcgColors[pokemon.types[i].type.name];
+        }
+        return type;
+    };
 
     return (
-        <div className={'pokemon ' + bcgColors[pokemon.types[0].type.name]}>
+        <div className={'pokemon ' + types(pokemon)}>
+        {/*<div className={'pokemon ' + bcgColors[pokemon.types[0].type.name]}>*/}
             <div className="responsiveMain">
                 <div className="img">
                     {pokemon.sprites.front_default ?

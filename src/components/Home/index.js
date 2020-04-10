@@ -21,7 +21,8 @@ class Home extends React.Component{
             filteredPokemons: [],
             currentPage: 1,
             isFiltersVisible: false,
-            pokemonTypes: []
+            pokemonTypes: [],
+            alphabeticalSortDown : false
         };
     }
 
@@ -121,6 +122,29 @@ class Home extends React.Component{
         this.setState({filteredPokemons});
     }
 
+    holdingItemsFilter(checkedHoldingItems){
+        let pokemons = this.state.pokemons;
+        const selectedTypes = [];
+        let filteredPokemons = [];
+        checkedHoldingItems.forEach((val, key)  => {
+            if( val === true) return selectedTypes.push(key);
+        });
+
+        if(selectedTypes[0] === 'notHolding')
+        pokemons.map(pokemon => {
+            return (pokemon.held_items.length <= 0 ?  filteredPokemons.push(pokemon) : null)
+        });
+
+        else if(selectedTypes[0] === 'holding')
+            pokemons.map(pokemon => {
+                return (pokemon.held_items.length > 0 ?  filteredPokemons.push(pokemon) : null)
+        });
+
+        filteredPokemons = this.removeDuplicates(filteredPokemons, 'id');
+        selectedTypes.length <= 0 ? this.setState({filteredPokemons: this.state.pokemons}) :
+            this.setState({filteredPokemons});
+    }
+
     removeDuplicates(array, key) {
         return array
             .map(e => e[key])
@@ -132,6 +156,27 @@ class Home extends React.Component{
         this.setState({
             isFiltersVisible: false
         })
+    }
+
+    sortAlphabetical(){
+        this.setState({alphabeticalSortDown : !this.state.alphabeticalSortDown});
+        const filteredPokemons = this.state.filteredPokemons;
+        this.state.alphabeticalSortDown ?
+            (
+                filteredPokemons.sort((firstPokemon,secondPokemon) => {
+                    if (firstPokemon.name > secondPokemon.name) return -1;
+                    else if (firstPokemon.name < secondPokemon.name) return 1;
+                    return 0;
+                })
+            ) :
+            (
+                filteredPokemons.sort((firstPokemon,secondPokemon) => {
+                    if (firstPokemon.name < secondPokemon.name) return -1;
+                    else if (firstPokemon.name  > secondPokemon.name) return 1;
+                    return 0;
+                })
+            );
+        this.setState({filteredPokemons})
     }
 
     componentDidMount() {
@@ -155,6 +200,7 @@ class Home extends React.Component{
                 <div className='info'>
                     <p className='results'>Pokemons found: {this.state.filteredPokemons.length}</p>
                     <button
+                        disabled={this.state.isLoading}
                         onClick={() => this.setState({isFiltersVisible: !this.state.isFiltersVisible})}
                         className='filters'
                     >
@@ -162,6 +208,7 @@ class Home extends React.Component{
                         <p className='filtersText'>Filters</p>
                     </button>
                     <Filters
+                        holdingItemsFilter={(checkedHoldingItems) => this.holdingItemsFilter(checkedHoldingItems)}
                         typesFilter={(checkedTypes) => this.typesFilter(checkedTypes)}
                         types={this.state.pokemonTypes}
                         closeModal={() => this.closeModal()}
@@ -170,7 +217,7 @@ class Home extends React.Component{
                 </div>
                 <div className="header">
                     <p>Image</p>
-                    <p>Name</p>
+                    <p className='sorting'><i onClick={() => this.sortAlphabetical()} className="fas fa-sort-alpha-down" />Name</p>
                     <p>Types</p>
                     <p>Height</p>
                     <p>Weight</p>
@@ -178,11 +225,13 @@ class Home extends React.Component{
                 </div>
                 {this.state.isLoading ?
                     <Loading pokeball={pokeball} /> :
-                    pokemonsVisible.map((pokemon, index) =>
-                        <Pokemon key={index} pokemon={pokemon} />
-                    )
+                    (pokemonsVisible.length <= 0 ?
+                        <p className='noResults'>No results found</p> :
+                        pokemonsVisible.map((pokemon, index) =>
+                            <Pokemon key={index} pokemon={pokemon} />
+                        ))
                 }
-                {this.state.isLoading ? null :
+                {this.state.isLoading || pokemonsVisible.length <= 0 ? null :
                     <div className="pagination">
                         <button className='changePage' onClick={() => this.onPrevPage()}>Prev</button>
                         {this.onCurrentPage()}

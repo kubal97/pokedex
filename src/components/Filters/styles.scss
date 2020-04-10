@@ -1,3 +1,10 @@
+* {
+  box-sizing: border-box;
+  &::before, &::after {
+    box-sizing: border-box;
+  }
+}
+
 .listOfFilters{
   position: absolute;
   width: 80%;
@@ -5,14 +12,15 @@
   right: 0;
   top: 70px;
   padding: 10px;
-  background-color: #5f8dbd;
+  background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 0 30px #353535;
 
   .filterName{
     font-family: 'Roboto', sans-serif;
+    font-weight: 600;
     font-size: 25px;
-    color: #ffffff;
+    color: #656565;
     text-align: center;
   }
 
@@ -24,17 +32,62 @@
     justify-content: flex-start;
 
     .type{
+      display: flex;
+      flex-direction: column;
       width: 70px;
       font-family: 'Open Sans', sans-serif;
       font-size: 15px;
-      color: #ffffff;
+      color: #353535;
       margin: 5px 20px;
-      text-align: center;
+      align-items: center;
 
+      .checkbox{
+        position: relative;
+        width: 1.5em;
+        height: 1.5em;
+        color: #363839;
+        border: 1px solid #9A9A9A;
+        border-radius: 4px;
+        appearance: none;
+        outline: 0;
+        cursor: pointer;
+        transition: background 300ms cubic-bezier(0.1, 0.1, 0.25, 1);
+
+        &::before {
+          position: absolute;
+          content: '';
+          display: block;
+          top: 2px;
+          left: 6px;
+          width: 6px;
+          height: 12px;
+          border-style: solid;
+          border-color: #ffffff;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+          opacity: 0;
+        }
+
+        &:checked {
+          color: #353535;
+          border-color: #76BDFE;
+          background: #76BDFE;
+
+          &::before {
+            opacity: 1;
+          }
+
+          ~ label::before {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+          }
+        }
+      }
 
       .typeName{
         text-transform: capitalize;
         margin: 0 0 20px 0;
+        color: #656565;
+        font-weight: 400;
       }
     }
   }
@@ -46,11 +99,6 @@
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-
-    &:hover{
-      cursor: pointer;
-      background-color: #5f8dbd;
-    }
 
     .buttonFilters{
       font-family: 'Open Sans', sans-serif;
@@ -69,20 +117,20 @@
     }
 
     .close{
-      background-color: #656565;
+      background-color: #9A9A9A;
 
       &:hover{
         cursor: pointer;
-        background-color: #353535;
+        background-color: #656565;
       }
     }
 
     .filter{
-      background-color: #48D0B0;
+      background-color: #76BDFE;
 
       &:hover{
         cursor: pointer;
-        background-color: #3ba78b;
+        background-color: #5f8dbd;
       }
     }
   }

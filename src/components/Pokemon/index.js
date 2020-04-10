@@ -61,9 +61,9 @@ const Pokemon = (props) => {
                 <div className='heldItems'>
                     <span className='labelResponsive'>Held items:</span>
                     {pokemon.held_items.length <=0 ? <p className='dots'>---</p> :
-                    pokemon.held_items.map((item, index) =>
-                        <p key={index} className='item'>{item.item.name}</p>
-                    )}
+                        pokemon.held_items.map((item, index) =>
+                            <p key={index} className='item'>{item.item.name}</p>
+                        )}
                 </div>
             </div>
         </div>

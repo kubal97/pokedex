@@ -6,14 +6,22 @@ class Filters extends React.Component{
         super(props);
         this.state = {
             checkedTypes: new Map(),
+            checkedHoldItems: new Map()
         };
         this.handleChangeType = this.handleChangeType.bind(this);
+        this.handleChangeHolding = this.handleChangeHolding.bind(this);
     }
 
     handleChangeType(e) {
         const item = e.target.name;
         const isChecked = !e.target.checked;
         this.setState(prevState => ({ checkedTypes: prevState.checkedTypes.set(item, !isChecked) }));
+    }
+
+    handleChangeHolding(e) {
+        const item = e.target.name;
+        const isChecked = !e.target.checked;
+        this.setState(prevState => ({ checkedHoldItems: prevState.checkedHoldItems.set(item, !isChecked) }));
     }
 
     render() {
@@ -24,20 +32,42 @@ class Filters extends React.Component{
                     <p className='filterName'>Filter by type</p>
                     <div className="checkboxes">
                         {types.map((type, index) =>
-                            <div className='type'>
+                            <div key={index} className='type'>
                                 <input
                                     name={type.name}
-                                    key={index}
                                     checked={this.state.checkedTypes.get(type.name)}
                                     onChange={this.handleChangeType}
                                     type='checkbox'
                                     className='checkbox' />
-                                <p className='typeName'>{type.name}</p>
+                                <label className='typeName'>{type.name}</label>
                             </div>
                         )}
                     </div>
+                    <p className="filterName">Filter by held items</p>
+                    <div className="checkboxes">
+                        <div className='type'>
+                            <input
+                                name='holding'
+                                checked={this.state.checkedHoldItems.get('holding')}
+                                onChange={this.handleChangeHolding}
+                                type='checkbox'
+                                className='checkbox' />
+                            <label className='typeName'>Holding item(s)</label>
+                            <input
+                                name='notHolding'
+                                checked={this.state.checkedHoldItems.get('notHolding')}
+                                onChange={this.handleChangeHolding}
+                                type='checkbox'
+                                className='checkbox' />
+                            <label className='typeName'>Not holding items</label>
+                        </div>
+                    </div>
                     <div className="buttonsContainer">
-                        <button className='buttonFilters filter' onClick={() => this.props.typesFilter(this.state.checkedTypes)}>Filter</button>
+                        <button className='buttonFilters filter' onClick={() => {
+                            this.props.typesFilter(this.state.checkedTypes);
+                            this.props.holdingItemsFilter(this.state.checkedHoldItems);
+                            this.props.closeModal();
+                        }}>Filter</button>
                         <button className='buttonFilters close' onClick={() => this.props.closeModal()}>Close</button>
                     </div>
                 </div>

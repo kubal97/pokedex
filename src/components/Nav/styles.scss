@@ -1,4 +1,9 @@
 .container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
   font-family: 'Roboto', sans-serif;
   color: #353535;
   font-weight: bold;
@@ -7,6 +12,8 @@
   align-items: center;
   justify-content: center;
   border-bottom: 2px solid #656565;
+  z-index: 999;
+  font-size: 20px;
 
   .pokeball{
     width: 50px;
@@ -15,5 +22,16 @@
 
   .textLogo{
     margin-left: 30px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container{
+    height: 70px;
+    font-size: 15px;
+
+    .pokeball{
+      width: 35px;
+    }
   }
 }

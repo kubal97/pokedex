@@ -45,7 +45,7 @@ class Filters extends React.Component{
                     </div>
                     <p className="filterName">Filter by held items</p>
                     <div className="checkboxes">
-                        <div className='type'>
+                        <div className='type wider'>
                             <input
                                 name='holding'
                                 checked={this.state.checkedHoldItems.get('holding')}
@@ -53,19 +53,20 @@ class Filters extends React.Component{
                                 type='checkbox'
                                 className='checkbox' />
                             <label className='typeName'>Holding item(s)</label>
+                        </div>
+                        <div className="type wider">
                             <input
                                 name='notHolding'
                                 checked={this.state.checkedHoldItems.get('notHolding')}
                                 onChange={this.handleChangeHolding}
                                 type='checkbox'
                                 className='checkbox' />
-                            <label className='typeName'>Not holding items</label>
+                            <label className='typeName'>Not holding item(s)</label>
                         </div>
                     </div>
                     <div className="buttonsContainer">
                         <button className='buttonFilters filter' onClick={() => {
-                            this.props.typesFilter(this.state.checkedTypes);
-                            this.props.holdingItemsFilter(this.state.checkedHoldItems);
+                            this.props.filters(this.state.checkedTypes, this.state.checkedHoldItems);
                             this.props.closeModal();
                         }}>Filter</button>
                         <button className='buttonFilters close' onClick={() => this.props.closeModal()}>Close</button>

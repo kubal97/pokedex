@@ -71,22 +71,17 @@ class Home extends React.Component{
         const restPages = [];
         for (let i = 1; i <= totalPages; i++) {
             if (i - this.state.currentPage < 5 && this.state.currentPage - i < 5){
-            restPages.push(
-                <a
-                    onClick={() => {
-                        window.scroll({top: 0, behavior: 'smooth' });
-                        this.setState({
-                            currentPage: i,
-                        });
-                    }}
-                    href="/#"
-                    key={i}
-                    className={this.state.currentPage === i ?
-                        'singlePage active' :
-                        'singlePage'}
-                >
-                    {i}
-                </a>);
+                restPages.push(<a
+                        onClick={() => {window.scroll({top: 0, behavior: 'smooth' });this.setState({
+                                currentPage: i,
+                            });
+                        }}
+                        href="/#"
+                        key={i}
+                        className={this.state.currentPage === i ? 'singlePage active' : 'singlePage'}>
+                        {i}
+                        </a>
+                );
             }
         }
         return restPages;
@@ -105,44 +100,46 @@ class Home extends React.Component{
         });
     }
 
-    typesFilter(checkedTypes){
+    filters(checkedTypes, checkedHoldingItems){
         let pokemons = this.state.pokemons;
         const selectedTypes = [];
+        const selectedHoldingItems = [];
         let filteredPokemons = [];
+
         checkedTypes.forEach((val, key)  => {
             if( val === true) return selectedTypes.push(key);
         });
-        pokemons.map(pokemon => {
-             pokemon.types.map(type => {
-                 return (selectedTypes.includes(type.type.name) ? filteredPokemons.push(pokemon) : null)
-            })
-        });
-        filteredPokemons = this.removeDuplicates(filteredPokemons, 'id');
-        selectedTypes.length <= 0 ? this.setState({filteredPokemons: this.state.pokemons}) :
-        this.setState({filteredPokemons});
-    }
-
-    holdingItemsFilter(checkedHoldingItems){
-        let pokemons = this.state.pokemons;
-        const selectedTypes = [];
-        let filteredPokemons = [];
         checkedHoldingItems.forEach((val, key)  => {
-            if( val === true) return selectedTypes.push(key);
+            if( val === true) return selectedHoldingItems.push(key);
         });
 
-        if(selectedTypes[0] === 'notHolding')
-        pokemons.map(pokemon => {
-            return (pokemon.held_items.length <= 0 ?  filteredPokemons.push(pokemon) : null)
-        });
+        if(selectedTypes.length <= 0 && selectedHoldingItems.length <= 0) filteredPokemons = pokemons;
 
-        else if(selectedTypes[0] === 'holding')
+        else if(selectedHoldingItems[0] === 'notHolding')
             pokemons.map(pokemon => {
-                return (pokemon.held_items.length > 0 ?  filteredPokemons.push(pokemon) : null)
-        });
+                if(selectedTypes.length <= 0) return (pokemon.held_items.length <= 0 ? filteredPokemons.push(pokemon) : null);
+                pokemon.types.map(type => {
+                    return (selectedTypes.includes(type.type.name) && pokemon.held_items.length <= 0 ? filteredPokemons.push(pokemon) : null)
+                })
+            });
+
+        else if(selectedHoldingItems[0] === 'holding')
+            pokemons.map(pokemon => {
+                if(selectedTypes.length <= 0) return (pokemon.held_items.length > 0 ? filteredPokemons.push(pokemon) : null);
+                pokemon.types.map(type => {
+                    return (selectedTypes.includes(type.type.name) && pokemon.held_items.length > 0 ?  filteredPokemons.push(pokemon) : null)
+                })
+            });
+
+        else if (selectedHoldingItems.length <= 0 || selectedHoldingItems.length > 1)
+            pokemons.map(pokemon => {
+                pokemon.types.map(type => {
+                    return (selectedTypes.includes(type.type.name) ? filteredPokemons.push(pokemon) : null)
+                })
+            });
 
         filteredPokemons = this.removeDuplicates(filteredPokemons, 'id');
-        selectedTypes.length <= 0 ? this.setState({filteredPokemons: this.state.pokemons}) :
-            this.setState({filteredPokemons});
+        this.setState({filteredPokemons});
     }
 
     removeDuplicates(array, key) {
@@ -208,8 +205,7 @@ class Home extends React.Component{
                         <p className='filtersText'>Filters</p>
                     </button>
                     <Filters
-                        holdingItemsFilter={(checkedHoldingItems) => this.holdingItemsFilter(checkedHoldingItems)}
-                        typesFilter={(checkedTypes) => this.typesFilter(checkedTypes)}
+                        filters={(checkedTypes, checkedHoldingItems) => this.filters(checkedTypes, checkedHoldingItems)}
                         types={this.state.pokemonTypes}
                         closeModal={() => this.closeModal()}
                         isFiltersVisible={this.state.isFiltersVisible}

@@ -43,8 +43,8 @@
 
       .checkbox{
         position: relative;
-        width: 1.5em;
-        height: 1.5em;
+        width: 20px;
+        height: 20px;
         color: #363839;
         border: 1px solid #9A9A9A;
         border-radius: 4px;
@@ -84,11 +84,20 @@
       }
 
       .typeName{
-        text-transform: capitalize;
         margin: 0 0 20px 0;
         color: #656565;
         font-weight: 400;
+        text-align: center;
+
+        &::first-letter{
+          text-transform: capitalize;
+        }
       }
+    }
+
+    .wider{
+      width: 140px;
+      height: auto;
     }
   }
 
@@ -131,6 +140,48 @@
       &:hover{
         cursor: pointer;
         background-color: #5f8dbd;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .listOfFilters{
+    width: 100%;
+    top: 50px;
+
+    .filterName{
+      font-size: 16px;
+    }
+
+    .checkboxes{
+      justify-content: center;
+
+      .type{
+        width: 50px;
+        margin: 5px 10px;
+
+        .checkbox{
+          width: 15px;
+          height: 15px;
+
+          &::before{
+            top: 2px;
+            left: 5px;
+            width: 4px;
+            height: 8px;
+          }
+        }
+
+        .typeName{
+          font-size: 13px;
+        }
+      }
+    }
+
+    .buttonsContainer{
+      .buttonFilters{
+        font-size: 16px;
       }
     }
   }

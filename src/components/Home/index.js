@@ -138,7 +138,10 @@ class Home extends React.Component{
             });
 
         filteredPokemons = this.removeDuplicates(filteredPokemons, 'id');
-        this.setState({filteredPokemons});
+        this.setState({
+            filteredPokemons,
+            currentPage: 1
+        });
     }
 
     removeDuplicates(array, key) {

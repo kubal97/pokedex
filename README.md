@@ -1,3 +1,7 @@
+### Project published on github pages
+ https://kubal97.github.io/pokedex/
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

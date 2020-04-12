@@ -103,6 +103,10 @@
     }
   }
 
+  .sortResponsive{
+    display: none;
+  }
+
   .header{
     width: 100%;
     background-color: #f0f3f9;
@@ -127,10 +131,10 @@
     }
 
     & p{
-      width: 20%;
+      width: calc(100% / 7);
       text-align: center;
       text-transform: uppercase;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: bold;
       color: #656565;
 
@@ -225,7 +229,7 @@
     transform:scale(1)}
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 950px) {
   .mainContainer{
     width: 95vw;
 
@@ -247,6 +251,15 @@
           margin: 0;
         }
       }
+    }
+
+    .sortResponsive{
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 20px;
+      font-size: 20px;
+      color: #656565;
     }
 
     .header{

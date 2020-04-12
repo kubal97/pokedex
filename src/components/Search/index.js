@@ -27,7 +27,7 @@ class Search extends React.Component{
                 <input
                     onChange={(e) => this.searchInput(e)}
                     onKeyPress={this.enterPressed.bind(this)}
-                    placeholder='Find a pokemon'
+                    placeholder='Find a pokemon by name'
                     type="text"/>
                 <button
                     disabled={isLoading}

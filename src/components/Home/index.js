@@ -116,7 +116,7 @@ class Home extends React.Component{
         if(selectedTypes.length <= 0 && selectedHoldingItems.length <= 0) filteredPokemons = pokemons;
 
         else if(selectedHoldingItems[0] === 'notHolding')
-            pokemons.map(pokemon => {
+            pokemons.forEach(pokemon => {
                 if(selectedTypes.length <= 0) return (pokemon.held_items.length <= 0 ? filteredPokemons.push(pokemon) : null);
                 pokemon.types.map(type => {
                     return (selectedTypes.includes(type.type.name) && pokemon.held_items.length <= 0 ? filteredPokemons.push(pokemon) : null)
@@ -124,7 +124,7 @@ class Home extends React.Component{
             });
 
         else if(selectedHoldingItems[0] === 'holding')
-            pokemons.map(pokemon => {
+            pokemons.forEach(pokemon => {
                 if(selectedTypes.length <= 0) return (pokemon.held_items.length > 0 ? filteredPokemons.push(pokemon) : null);
                 pokemon.types.map(type => {
                     return (selectedTypes.includes(type.type.name) && pokemon.held_items.length > 0 ?  filteredPokemons.push(pokemon) : null)
@@ -132,7 +132,7 @@ class Home extends React.Component{
             });
 
         else if (selectedHoldingItems.length <= 0 || selectedHoldingItems.length > 1)
-            pokemons.map(pokemon => {
+            pokemons.forEach(pokemon => {
                 pokemon.types.map(type => {
                     return (selectedTypes.includes(type.type.name) ? filteredPokemons.push(pokemon) : null)
                 })
@@ -221,6 +221,7 @@ class Home extends React.Component{
                         isFiltersVisible={this.state.isFiltersVisible}
                     />
                 </div>
+                <div className="sortResponsive"><i onClick={() => this.sortAlphabetical()} className="fas fa-sort-alpha-down" /></div>
                 <div className="header">
                     <p>Image</p>
                     <p className='sorting'><i onClick={() => this.sortAlphabetical()} className="fas fa-sort-alpha-down" />Name</p>
@@ -228,6 +229,7 @@ class Home extends React.Component{
                     <p>Height</p>
                     <p>Weight</p>
                     <p>Held items</p>
+                    <p>Abilities</p>
                 </div>
                 {this.state.isLoading ?
                     <Loading pokeball={pokeball} /> :

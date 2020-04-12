@@ -73,6 +73,13 @@ const Pokemon = (props) => {
                             <p key={index} className='item'>{item.item.name}</p>
                         )}
                 </div>
+                <div className='abilities'>
+                    <span className='labelResponsive'>Abilities:</span>
+                    {pokemon.abilities.length <=0 ? <p className='dots'>---</p> :
+                        pokemon.abilities.map((ability, index) =>
+                            <p key={index} className='ability'>{ability.ability.name}</p>
+                        )}
+                </div>
             </div>
         </div>
     )

@@ -71,7 +71,7 @@ class Home extends React.Component{
         const restPages = [];
         for (let i = 1; i <= totalPages; i++) {
             if (i - this.state.currentPage < 5 && this.state.currentPage - i < 5){
-                restPages.push(<a
+                restPages.push(<button
                         onClick={() => {window.scroll({top: 0, behavior: 'smooth' });this.setState({
                                 currentPage: i,
                             });
@@ -79,7 +79,7 @@ class Home extends React.Component{
                         key={i}
                         className={this.state.currentPage === i ? 'singlePage active' : 'singlePage'}>
                         {i}
-                        </a>
+                        </button>
                 );
             }
         }

@@ -76,7 +76,7 @@ class Home extends React.Component{
                                 currentPage: i,
                             });
                         }}
-                        href="/#"
+                        href="pokedex/#"
                         key={i}
                         className={this.state.currentPage === i ? 'singlePage active' : 'singlePage'}>
                         {i}

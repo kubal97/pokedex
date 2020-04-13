@@ -36,7 +36,6 @@ const Pokemon = (props) => {
 
     return (
         <div className={'pokemon ' + types(pokemon)}>
-        {/*<div className={'pokemon ' + bcgColors[pokemon.types[0].type.name]}>*/}
             <div className="responsiveMain">
                 <div className="img">
                     {pokemon.sprites.front_default ?

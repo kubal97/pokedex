@@ -114,6 +114,16 @@ class Home extends React.Component{
 
         if(selectedTypes.length <= 0 && selectedHoldingItems.length <= 0) filteredPokemons = pokemons;
 
+        else if(selectedHoldingItems.length > 1){
+            if(selectedTypes.length <= 0) return filteredPokemons.push(pokemons);
+            else
+                pokemons.forEach(pokemon => {
+                    pokemon.types.map(type => {
+                        return (selectedTypes.includes(type.type.name) ? filteredPokemons.push(pokemon) : null)
+                    })
+                })
+        }
+
         else if(selectedHoldingItems[0] === 'notHolding')
             pokemons.forEach(pokemon => {
                 if(selectedTypes.length <= 0) return (pokemon.held_items.length <= 0 ? filteredPokemons.push(pokemon) : null);
@@ -130,7 +140,7 @@ class Home extends React.Component{
                 })
             });
 
-        else if (selectedHoldingItems.length <= 0 || selectedHoldingItems.length > 1)
+        else if (selectedHoldingItems.length <= 0)
             pokemons.forEach(pokemon => {
                 pokemon.types.map(type => {
                     return (selectedTypes.includes(type.type.name) ? filteredPokemons.push(pokemon) : null)

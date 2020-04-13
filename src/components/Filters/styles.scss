@@ -161,18 +161,6 @@
         width: 50px;
         margin: 5px 10px;
 
-        .checkbox{
-          width: 15px;
-          height: 15px;
-
-          &::before{
-            top: 2px;
-            left: 5px;
-            width: 4px;
-            height: 8px;
-          }
-        }
-
         .typeName{
           font-size: 13px;
         }

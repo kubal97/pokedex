@@ -27,8 +27,8 @@ class Home extends React.Component{
     }
 
     async onLoadPokemons() {
-        const types = (await axios.get('https://pokeapi.co/api/v2/type')).data.results;
-        const { count, results } = (await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1000`)).data;
+        const types = (await axios.get('https://pokeapi.co/api/v2/type').catch(error => alert(error))).data.results;
+        const { count, results } = (await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1000`).catch(error => alert(error))).data;
         const pokemons = (await Promise.all(results.map(result => axios.get(result.url)))).map(result => result.data);
         this.setState({
             pokemonsCount: count,
@@ -70,7 +70,7 @@ class Home extends React.Component{
         else totalPages = Math.ceil(this.state.pokemonsCount / this.state.pokemonsPerPage);
         const restPages = [];
         for (let i = 1; i <= totalPages; i++) {
-            if (i - this.state.currentPage < 5 && this.state.currentPage - i < 5){
+            if (i - this.state.currentPage < 4 && this.state.currentPage - i < 4){
                 restPages.push(<button
                         onClick={() => {window.scroll({top: 0, behavior: 'smooth' });this.setState({
                                 currentPage: i,

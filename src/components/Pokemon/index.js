@@ -4,7 +4,7 @@ import './styles.scss';
 const Pokemon = (props) => {
 
     const {pokemon} = props;
-    const bcgColors = {
+    const bgColors = {
         bug: 'green',
         grass: 'green',
         fire: 'red',
@@ -29,7 +29,7 @@ const Pokemon = (props) => {
     const types = (pokemon) => {
         let type = '';
         for (let i = 0; i < pokemon.types.length; i++) {
-            type += bcgColors[pokemon.types[i].type.name];
+            type += bgColors[pokemon.types[i].type.name];
         }
         return type;
     };
